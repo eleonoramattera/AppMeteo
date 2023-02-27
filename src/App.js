@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Container } from "react-bootstrap";
+import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
+
+import Previsioni from "./components/Previsioni";
+import CustomNav from "./components/CustomNav";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Container fluid className="d-flex p-0" style={{ height: "100%" }}>
+        <BrowserRouter>
+          <CustomNav />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/previsioni" element={<Previsioni />} />
+          </Routes>
+        </BrowserRouter>
+      </Container>
+    </>
   );
 }
-
 export default App;
