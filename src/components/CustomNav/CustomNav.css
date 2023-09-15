@@ -1,0 +1,15 @@
+#mynav {
+  background: linear-gradient(#127ff0, #6cddfa);
+  width: "20%";
+  height: "100%";
+  border-radius: "30px";
+  display: "flex";
+  flex-direction: "column";
+  align-items: "center";
+  margin: "10px";
+}
+
+.logo {
+  width: "200px";
+  margin-top: "20px";
+}
