@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 
 import Previsioni from "./components/Previsioni";
-import CustomNav from "./components/CustomNav";
+import CustomNav from "./components/CustomNav/CustomNav.jsx";
 
 function App() {
   return (
