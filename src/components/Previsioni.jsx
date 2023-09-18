@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, useEffect } from "react";
 import { Form, Button, Row, Col, Alert, Spinner } from "react-bootstrap";
 import { BsSearch } from "react-icons/bs";
-import Meteo from "./Meteo";
+import Meteo from "./Meteo/Meteo";
 
 function Previsioni() {
   const [meteo, setMeteo] = useState(null);
@@ -59,7 +59,7 @@ function Previsioni() {
             <Meteo meteo={meteo} />
           ) : meteo === null && error ? (
             <Alert variant="danger" className="mt-4 ms-3">
-              La città che hai inserito non esiste{" "}
+              La città che hai inserito non esiste
             </Alert>
           ) : meteo === null && !error ? (
             <>
