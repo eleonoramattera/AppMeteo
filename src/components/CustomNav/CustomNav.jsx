@@ -8,7 +8,7 @@ import { Link, useLocation } from "react-router-dom";
 import meteo from "../../assets/img/meteo.png";
 import "./CustomNav.css";
 
-const CustomNav = ({ claim }) => {
+const CustomNav = () => {
   const location = useLocation();
   console.log("LOCATION", location);
 
