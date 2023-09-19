@@ -1,173 +1,109 @@
 import { useState, useEffect } from "react";
-import { Row, Col, Card, Badge } from "react-bootstrap";
-import weather from "../../data/weather.json";
-import weathernapoli from "../../data/weathernapoli.json";
-import weatherroma from "../../data/weatherroma.json";
-import weatherfirenze from "../../data/weatherfirenze.json";
+import { Row, Col, Card } from "react-bootstrap";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Previsioni from "../Previsioni/Previsioni";
 import "./Home.css";
-import CustomNav from "../CustomNav/CustomNav";
 
 const Home = () => {
-  /*const [city, setCity] = useState("");
-  const [data, setData] = useState([]);
-  const [error, setError] = useState(false);
+  const napoli =
+    "https://api.openweathermap.org/data/2.5/weather?lat=40.85&lon=14.26&appid=4089d04051bc5c910b2b7ee5e7d1e908";
+  const torino =
+    "https://api.openweathermap.org/data/2.5/weather?lat=45.07&lon=7.68&appid=4089d04051bc5c910b2b7ee5e7d1e908";
+  const milano =
+    "https://api.openweathermap.org/data/2.5/weather?lat=45.46&lon=9.18&appid=4089d04051bc5c910b2b7ee5e7d1e908";
+  const genova =
+    "https://api.openweathermap.org/data/2.5/weather?lat=44.40&lon=8.94&appid=4089d04051bc5c910b2b7ee5e7d1e908";
+  const bari =
+    "https://api.openweathermap.org/data/2.5/weather?lat=41.11&lon=16.87&appid=4089d04051bc5c910b2b7ee5e7d1e908";
+  const roma =
+    "https://api.openweathermap.org/data/2.5/weather?lat=41.90&lon=12.50&appid=4089d04051bc5c910b2b7ee5e7d1e908";
+  const venezia =
+    "https://api.openweathermap.org/data/2.5/weather?lat=45.44&lon=12.32&appid=4089d04051bc5c910b2b7ee5e7d1e908";
+  const firenze =
+    "https://api.openweathermap.org/data/2.5/weather?lat=43.76&lon=11.25&appid=4089d04051bc5c910b2b7ee5e7d1e908";
+  const palermo =
+    "https://api.openweathermap.org/data/2.5/weather?lat=38.11&lon=13.36&appid=4089d04051bc5c910b2b7ee5e7d1e908";
+  const cagliari =
+    "https://api.openweathermap.org/data/2.5/weather?lat=39.22&lon=9.12&appid=4089d04051bc5c910b2b7ee5e7d1e908";
+  const perugia =
+    "https://api.openweathermap.org/data/2.5/weather?lat=43.11&lon=12.39&appid=4089d04051bc5c910b2b7ee5e7d1e908";
+  const bologna =
+    "https://api.openweathermap.org/data/2.5/weather?lat=44.49&lon=11.34&appid=4089d04051bc5c910b2b7ee5e7d1e908";
+  const apiMeteo = [napoli, torino, milano, genova, bari, roma, venezia, firenze, palermo, cagliari, perugia, bologna];
 
-  const fetchCitta = async function () {
+  const [cityData, setCityData] = useState([]);
+
+  const fetchCityData = async (apiUrl) => {
     try {
-      let res = await fetch(
-        "http://api.openweathermap.org/geo/1.0/direct?q=torino&appid=4089d04051bc5c910b2b7ee5e7d1e908"
-      );
-
-      if (res.ok) {
-        let data = await res.json();
-        console.log(data);
-        setData();
+      const response = await fetch(apiUrl);
+      if (response.ok) {
+        const data = await response.json();
+        const cityInfo = {
+          name: data.name,
+          main: data.weather[0].main,
+          description: data.weather[0].description,
+          icon: data.weather[0].icon,
+        };
+        return cityInfo;
       } else {
-        console.log(error);
-        setError(true);
+        console.error("Errore nella richiesta API");
+        return null;
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      return null;
     }
   };
+
   useEffect(() => {
-    fetchCitta();
-    console.log("componentdidmount");
+    const selezionaAPI = async () => {
+      const apiCasuali = [...apiMeteo];
+      const cityInfoArray = [];
+
+      while (cityInfoArray.length < 8 && apiCasuali.length > 0) {
+        const indiceCasuale = Math.floor(Math.random() * apiCasuali.length);
+        const apiSelezionata = apiCasuali.splice(indiceCasuale, 1)[0];
+        const cityInfo = await fetchCityData(apiSelezionata);
+        if (cityInfo) {
+          cityInfoArray.push(cityInfo);
+        }
+      }
+
+      setCityData(cityInfoArray);
+    };
+
+    selezionaAPI();
   }, []);
-*/
 
   return (
     <>
-      {/* <div style={{ width: "100%" }}>
-        <Row style={{ width: "100%", display: "flex", justifyContent: "space-evenly" }}>
-          {weather.list[1].weather.map((citta, index) => (
-            <Col xs={3} className="mt-5 ms-5" key={`citta-${index}`}>
-              <Card class="shadow p-3 mb-5 bg-body rounded">
-                <Card.Title className="text-center mt-4">{weather.city.name}</Card.Title>
-                <Card.Subtitle className="text-center">{weather.city.country}</Card.Subtitle>
-                <Card.Body>
-                  <h2 className="text-center fw-bold fs-1">{weather.list[0].main.temp}°C</h2>
-                  <Card.Img
-                    variant="top"
-                    className="w-50 mx-5"
-                    src={`http://openweathermap.org/img/w/${citta.icon}.png?mode=png`}
-                  />
-                  <Card.Text>{citta.main}</Card.Text>
-                  <Card.Text>{citta.description}</Card.Text>
-
-                  <h5 className="text-center">
-                    <Badge bg="secondary" className="me-2">
-                      {weather.city.coord.lat}
-                    </Badge>
-                    <Badge bg="secondary">{weather.city.coord.lon}</Badge>
-                  </h5>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-
-          {weathernapoli.list[1].weather.map((citta, index) => (
-            <Col xs={3} className="mt-5 ms-5" key={`citta-${index}`}>
-              <Card
-                class="shadow p-3 mb-5 bg-body rounded"
-                style={{
-                  width: "250px",
-                  borderRadius: "30px",
-                  border: "4px solid #0d79f0",
-                  boxShadow: "10px 5px 15px rgb(0 42 90)",
+      <Row className="w-100 text-center">
+        <Col xs={12} className="d-flex flex-wrap justify-content-center">
+          {cityData.map((cityInfo, index) => (
+            <Col xs={6} md={4} lg={2} className="mt-5 ms-5" key={`city-${index}`}>
+              <Link
+                to={{
+                  pathname: "/previsioni",
                 }}>
-                <Card.Title className="text-center mt-4">{weathernapoli.city.name}</Card.Title>
-                <Card.Subtitle className="text-center">{weathernapoli.city.country}</Card.Subtitle>
-                <Card.Body>
-                  <h2 className="text-center fw-bold fs-1">{weathernapoli.list[0].main.temp}°C</h2>
-                  <Card.Img
-                    variant="top"
-                    className="w-50 mx-5"
-                    src={`http://openweathermap.org/img/w/${citta.icon}.png?mode=png`}
-                  />
-                  <Card.Text>{citta.main}</Card.Text>
-                  <Card.Text>{citta.description}</Card.Text>
-
-                  <h5 className="text-center">
-                    <Badge bg="secondary" className="me-2">
-                      {weathernapoli.city.coord.lat}
-                    </Badge>
-                    <Badge bg="secondary">{weathernapoli.city.coord.lon}</Badge>
-                  </h5>
-                </Card.Body>
-              </Card>
+                <Card class="shadow p-3 mb-5 bg-body rounded">
+                  <Card.Title className="text-center fs-3 mt-4">{cityInfo.name}</Card.Title>
+                  <Card.Body>
+                    <h4 className="text-center fw-bold">{cityInfo.main}</h4>
+                    <Card.Img
+                      variant="top"
+                      className="w-50 mx-5"
+                      src={`http://openweathermap.org/img/w/${cityInfo.icon}.png?mode=png`}
+                    />
+                    <Card.Text>
+                      {cityInfo.main} <br /> {cityInfo.description}
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Link>
             </Col>
           ))}
-        </Row>
-
-        <Row style={{ width: "100%", display: "flex", justifyContent: "space-evenly" }}>
-          {weatherfirenze.list[1].weather.map((citta, index) => (
-            <Col xs={3} className="mt-5 ms-5" key={`citta-${index}`}>
-              <Card
-                class="shadow p-3 mb-5 bg-body rounded"
-                style={{
-                  width: "250px",
-                  borderRadius: "30px",
-                  border: "4px solid #0d79f0",
-                  boxShadow: "10px 5px 15px rgb(0 42 90)",
-                }}>
-                <Card.Title className="text-center mt-4">{weatherfirenze.city.name}</Card.Title>
-                <Card.Subtitle className="text-center">{weatherfirenze.city.country}</Card.Subtitle>
-                <Card.Body>
-                  <h2 className="text-center fw-bold fs-1">{weatherfirenze.list[0].main.temp}°C</h2>
-                  <Card.Img
-                    variant="top"
-                    className="w-50 mx-5"
-                    src={`http://openweathermap.org/img/w/${citta.icon}.png?mode=png`}
-                  />
-                  <Card.Text>{citta.main}</Card.Text>
-                  <Card.Text>{citta.description}</Card.Text>
-
-                  <h5 className="text-center">
-                    <Badge bg="secondary" className="me-2">
-                      {weatherfirenze.city.coord.lat}
-                    </Badge>
-                    <Badge bg="secondary">{weatherfirenze.city.coord.lon}</Badge>
-                  </h5>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-
-          {weatherroma.list[1].weather.map((citta, index) => (
-            <Col xs={3} className="mt-5 ms-5" key={`citta-${index}`}>
-              <Card
-                class="shadow p-3 mb-5 bg-body rounded"
-                style={{
-                  width: "250px",
-                  borderRadius: "30px",
-                  border: "4px solid #0d79f0",
-                  boxShadow: "10px 5px 15px rgb(0 42 90)",
-                }}>
-                <Card.Title className="text-center mt-4">{weatherroma.city.name}</Card.Title>
-                <Card.Subtitle className="text-center">{weatherroma.city.country}</Card.Subtitle>
-                <Card.Body>
-                  <h2 className="text-center fw-bold fs-1">{weatherroma.list[0].main.temp}°C</h2>
-                  <Card.Img
-                    variant="top"
-                    className="w-50 mx-5"
-                    src={`http://openweathermap.org/img/w/${citta.icon}.png?mode=png`}
-                  />
-                  <Card.Text>{citta.main}</Card.Text>
-                  <Card.Text>{citta.description}</Card.Text>
-
-                  <h5 className="text-center">
-                    <Badge bg="secondary" className="me-2">
-                      {weatherroma.city.coord.lat}
-                    </Badge>
-                    <Badge bg="secondary">{weatherroma.city.coord.lon}</Badge>
-                  </h5>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-        </Row>
-      </div> */}
+        </Col>
+      </Row>
     </>
   );
 };
