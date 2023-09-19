@@ -1,5 +1,5 @@
 .card {
-  background-color: #a0d2fe; /* Colore di sfondo della card */
+  background: linear-gradient(rgb(188, 155, 245), rgb(131, 248, 240));
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 10px 20px rgb(6, 40, 106); /* Effetto lucido */
@@ -7,9 +7,54 @@
 }
 
 .card:hover {
-  transform: scale(1.05); /* Ingrandisce al passaggio del mouse */
+  transform: scale(1.05);
 }
 
 .card-body {
   padding: 20px;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(234, 221, 124, 0.27);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  text-align: center;
+  width: 100%;
+  height: 0;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+.card-body h4 {
+  position: absolute;
+  top: 10;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  text-align: center;
+  background-color: rgba(252, 238, 124, 0.487);
+
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.card:hover .card-body h4 {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.blurImg {
+  z-index: -1;
+  filter: blur(4px) opacity(0.9);
 }
