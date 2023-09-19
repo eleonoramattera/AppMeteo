@@ -4,6 +4,7 @@
   overflow: hidden;
   box-shadow: 0 10px 20px rgb(6, 40, 106); /* Effetto lucido */
   transition: transform 0.3s ease-in-out;
+  user-select: none;
 }
 
 .card:hover {

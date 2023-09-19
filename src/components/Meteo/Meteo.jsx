@@ -9,8 +9,8 @@ function Meteo({ meteo }) {
           <Col xs={12} md={4} lg={2} className="mb-5  ms-5" key={`city-${index}`}>
             <Card class="shadow p-3 mb-5 bg-body rounded">
               <Card.Body>
-                <h5>
-                  DAY: {new Date(meteo.dt_txt).toLocaleDateString("it-IT")},
+                <h5 className="fw-bold">
+                  DAY: {new Date(meteo.dt_txt).toLocaleDateString("it-IT")} <br />
                   {new Date(meteo.dt_txt).toLocaleTimeString("it-IT")}
                 </h5>
                 <Card.Text></Card.Text>
