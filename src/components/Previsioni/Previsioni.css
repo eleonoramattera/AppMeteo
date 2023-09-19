@@ -1,0 +1,44 @@
+.buttonSearch {
+  background: linear-gradient(rgb(188, 155, 245), rgb(131, 248, 240));
+  border: 2px solid rgb(188, 155, 245);
+  color: black;
+}
+.form-control:focus,
+.form-control:focus-visible {
+  border: 2px solid rgb(188, 155, 245);
+  box-shadow: none;
+}
+
+.spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+}
+
+.spinnerIcon {
+  animation: spin 1s linear infinite;
+  width: 6em;
+  height: 6em;
+  animation: fade 4s linear infinite;
+  opacity: 1;
+  z-index: 2;
+  animation-delay: 0s;
+  color: #ffd000;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 1;
+    transform: scale(1) rotate(360deg);
+  }
+  50% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    scale: 1;
+    transform: scale(1) rotate(360deg);
+  }
+}
