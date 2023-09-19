@@ -1,9 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap");
+
 .App {
   text-align: center;
 }
 
-body {
-  background-image: url("../src/assets/img/bg.jpg");
-  background-size: cover;
-  height: 100vh;
+body,
+html {
+  background-color: #a8d2f5;
+  font-family: "Tajawal", sans-serif;
 }
