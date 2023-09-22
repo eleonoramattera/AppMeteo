@@ -1,10 +1,9 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Container } from "react-bootstrap";
 import "./App.css";
+import { Container } from "react-bootstrap";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home/Home";
-
-import Previsioni from "./components/Previsioni/Previsioni.jsx";
+import Forecast from "./components/Forecast/Forecast.jsx";
 import CustomNav from "./components/CustomNav/CustomNav.jsx";
 
 function App() {
@@ -15,7 +14,7 @@ function App() {
           <CustomNav />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/previsioni" element={<Previsioni />} />
+            <Route path="/previsioni" element={<Forecast />} />
           </Routes>
         </BrowserRouter>
       </Container>

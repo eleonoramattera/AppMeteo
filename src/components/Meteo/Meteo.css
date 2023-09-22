@@ -2,7 +2,7 @@
   background: linear-gradient(rgb(188, 155, 245), rgb(131, 248, 240));
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 10px 20px rgb(6, 40, 106); /* Effetto lucido */
+  box-shadow: 0 10px 20px rgb(6, 40, 106);
   transition: transform 0.3s ease-in-out;
   user-select: none;
 }

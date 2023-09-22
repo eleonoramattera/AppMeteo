@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Row, Col, Card } from "react-bootstrap";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Previsioni from "../Previsioni/Previsioni";
+import Previsioni from "../Forecast/Forecast";
 import "./Home.css";
 
 const Home = () => {

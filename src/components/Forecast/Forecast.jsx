@@ -3,12 +3,12 @@ import React, { useState, useEffect } from "react";
 import { Form, Button, Row, Col, Alert } from "react-bootstrap";
 import { BsSearch } from "react-icons/bs";
 import { FaSun } from "react-icons/fa";
-import Meteo from "..//Meteo/Meteo";
-import "./Previsioni.css";
-import { useLocation } from "react-router-dom";
+import Meteo from "../Meteo/Meteo";
+import "./Forecast.css";
+
 import { Card } from "react-bootstrap";
 
-function Previsioni() {
+function Forecast() {
   const [meteo, setMeteo] = useState(null);
   const [city, setCity] = useState("");
   const [error, setError] = useState(false);
@@ -21,7 +21,7 @@ function Previsioni() {
           "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&APPID=4089d04051bc5c910b2b7ee5e7d1e908"
         );
         const data = await response.json();
-        console.log("DATAAAA", data);
+        // console.log("DATAAAA", data);
         if (data.cod === "404") {
           setError(true);
         } else {
@@ -36,9 +36,8 @@ function Previsioni() {
     }
   };
 
-  useEffect(() => {
-    handleSubmit();
-  }, [city]);
+  handleSubmit();
+  useEffect(() => {}, [city]);
 
   return (
     <Row className=" text-center w-100">
@@ -78,4 +77,4 @@ function Previsioni() {
   );
 }
 
-export default Previsioni;
+export default Forecast;
